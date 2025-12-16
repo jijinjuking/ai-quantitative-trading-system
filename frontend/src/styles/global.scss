@@ -1,0 +1,180 @@
+@use './variables.scss' as *;
+
+// 全局重置
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-family-sans);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+#app {
+  height: 100vh;
+  width: 100vw;
+}
+
+// Element Plus 主题覆盖
+.el-tabs {
+  --el-tabs-header-height: 40px;
+  
+  .el-tabs__header {
+    background: var(--bg-tertiary);
+    margin: 0;
+  }
+  
+  .el-tabs__item {
+    color: var(--text-secondary);
+    
+    &.is-active {
+      color: var(--accent-primary);
+    }
+    
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+  
+  .el-tabs__active-bar {
+    background: var(--accent-primary);
+  }
+  
+  .el-tabs__content {
+    color: var(--text-primary);
+  }
+}
+
+.el-button {
+  --el-button-bg-color: var(--bg-tertiary);
+  --el-button-border-color: var(--border-color);
+  --el-button-text-color: var(--text-primary);
+  --el-button-hover-bg-color: var(--bg-hover);
+  --el-button-hover-border-color: var(--border-light);
+  --el-button-hover-text-color: var(--text-primary);
+  
+  &.el-button--primary {
+    --el-button-bg-color: var(--accent-primary);
+    --el-button-border-color: var(--accent-primary);
+    --el-button-text-color: #ffffff;
+    --el-button-hover-bg-color: #40a9ff;
+    --el-button-hover-border-color: #40a9ff;
+  }
+}
+
+.el-select {
+  --el-select-input-color: var(--text-primary);
+  --el-select-input-focus-border-color: var(--accent-primary);
+  
+  .el-input__inner {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+    
+    &:focus {
+      border-color: var(--accent-primary);
+    }
+  }
+}
+
+.el-dropdown-menu {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  
+  .el-dropdown-menu__item {
+    color: var(--text-primary);
+    
+    &:hover {
+      background: var(--bg-hover);
+    }
+  }
+}
+
+// 自定义滚动条
+* {
+  @include custom-scrollbar;
+}
+
+// 专业交易界面样式
+.professional-trading-dashboard {
+  font-family: var(--font-family-sans);
+  
+  // 数字字体
+  .price, .quantity, .balance, .volume {
+    font-family: var(--font-family-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  
+  // 状态颜色
+  .positive {
+    color: var(--success-color);
+  }
+  
+  .negative {
+    color: var(--error-color);
+  }
+  
+  .buy {
+    color: var(--success-color);
+  }
+  
+  .sell {
+    color: var(--error-color);
+  }
+}
+
+// 加载动画
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  border-top-color: var(--accent-primary);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 工具提示
+.tooltip {
+  position: relative;
+  
+  &:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    border: 1px solid var(--border-color);
+  }
+}
+
+// 响应式隐藏
+@media (max-width: $breakpoint-md) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .show-mobile {
+    display: none !important;
+  }
+}

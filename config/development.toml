@@ -1,0 +1,86 @@
+# 🚀 量化交易平台 - 开发环境配置
+
+[server]
+host = "0.0.0.0"
+port = 8081
+
+[exchanges.binance]
+enabled = true
+symbols = ["BTCUSDT", "ETHUSDT", "BNBUSDT"]        # 开发时监控少量交易对
+websocket_url = "wss://stream.binance.com:9443/ws"
+rest_api_url = "https://api.binance.com"
+rate_limit = 1200                                  # 每分钟请求数
+reconnect_interval = 5
+max_reconnect_attempts = 10
+
+[storage.clickhouse]
+url = "http://localhost:8123"
+database = "market_data"
+username = "default"
+password = ""
+connection_timeout = 30
+query_timeout = 60
+max_connections = 10
+batch_size = 1000             # 开发环境小批量
+compression = true
+
+[storage.redis]
+url = "redis://localhost:6379"
+password = ""
+database = 0
+connection_timeout = 30
+max_connections = 20
+ttl_seconds = 3600             # 1小时缓存
+key_prefix = "market_data:"
+
+[storage.kafka]
+brokers = ["localhost:9092"]
+topic_prefix = "market_data"
+batch_size = 1000            # 开发环境小批量
+linger_ms = 5
+compression_type = "snappy"
+acks = "1"
+retries = 3
+
+[data_processing]
+batch_size = 100                  # 开发环境小批量便于调试
+flush_interval = 5                # 5秒刷新
+max_queue_size = 10000
+enable_data_validation = true
+enable_duplicate_detection = true
+data_retention_days = 7           # 开发环境保留7天
+max_gap_seconds = 60              # 1分钟间隙检测
+
+[websocket]
+max_connections = 1000               # 开发环境限制连接数
+heartbeat_interval = 30
+message_buffer_size = 1000
+compression_enabled = true
+rate_limit.enabled = true
+rate_limit.messages_per_second = 100
+rate_limit.burst_size = 200
+
+[monitoring]
+metrics_enabled = true
+health_check_interval = 10                            # 10秒健康检查
+alert_thresholds.max_data_delay_ms = 5000
+alert_thresholds.min_connection_uptime_percent = 90.0
+alert_thresholds.max_error_rate_percent = 10.0
+alert_thresholds.max_memory_usage_mb = 512
+
+# 数据连续性配置
+[continuity]
+enable_gap_detection = true
+enable_auto_repair = true
+preload_cache_on_startup = true
+save_state_interval = 30         # 30秒保存状态
+consistency_check_interval = 300 # 5分钟一致性检查
+max_gap_fill_hours = 24          # 最多填补24小时数据
+
+# 开发环境特定配置
+[development]
+log_level = "debug"
+enable_debug_endpoints = true
+mock_exchange_data = false    # 是否使用模拟数据
+fast_startup = true           # 快速启动模式
+skip_historical_data = false  # 是否跳过历史数据加载

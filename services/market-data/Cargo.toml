@@ -1,0 +1,72 @@
+[package]
+name = "market-data"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "market-data"
+path = "src/main_simple.rs"
+
+[dependencies]
+# 异步运行时
+tokio = { workspace = true }
+tokio-util = { workspace = true }
+
+# Web框架
+axum = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+
+# WebSocket客户端
+tokio-tungstenite = { workspace = true }
+futures-util = { workspace = true }
+tokio-native-tls = "0.3"
+native-tls = "0.2"
+
+# 序列化
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 错误处理
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# 日志
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# 配置
+config = { workspace = true }
+dotenvy = { workspace = true }
+
+# 时间处理
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 数值计算
+rust_decimal = { workspace = true }
+
+# 数据库
+clickhouse = { workspace = true }
+redis = { workspace = true }
+
+# 消息队列
+rdkafka = { workspace = true }
+
+# HTTP客户端
+reqwest = { workspace = true }
+
+# 并发
+dashmap = { workspace = true }
+parking_lot = { workspace = true }
+
+# 监控
+prometheus = { workspace = true }
+
+# 系统信息
+num_cpus = "1.16"
+
+# 共享库
+shared-models = { path = "../../shared/models" }
+shared-utils = { path = "../../shared/utils" }
+shared-protocols = { path = "../../shared/protocols" }

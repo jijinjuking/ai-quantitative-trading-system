@@ -1,0 +1,65 @@
+[package]
+name = "gateway"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# 异步运行时
+tokio = { workspace = true }
+tokio-util = { workspace = true }
+
+# Web框架
+axum = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+hyper = { workspace = true }
+
+# 序列化
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 错误处理
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# 日志
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# 配置
+config = { workspace = true }
+dotenvy = { workspace = true }
+
+# 时间处理
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 数值计算
+rust_decimal = { workspace = true }
+
+# 数据库
+redis = { workspace = true }
+
+# HTTP客户端
+reqwest = { workspace = true }
+
+# WebSocket
+tokio-tungstenite = { workspace = true }
+futures-util = { workspace = true }
+
+# URL编码
+urlencoding = { workspace = true }
+
+# 加密和认证
+jsonwebtoken = { workspace = true }
+
+# 异步trait
+async-trait = "0.1"
+
+# 监控
+prometheus = { workspace = true }
+
+# 共享库
+shared-models = { path = "../../shared/models" }
+shared-utils = { path = "../../shared/utils" }
+shared-protocols = { path = "../../shared/protocols" }

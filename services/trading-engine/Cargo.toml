@@ -1,0 +1,72 @@
+[package]
+name = "trading-engine"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# 基础框架
+tokio = { workspace = true }
+axum = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+
+# 序列化
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# 数据库
+sqlx = { workspace = true, features = [
+    "runtime-tokio-rustls",
+    "postgres",
+    "chrono",
+    "uuid",
+    "rust_decimal",
+] }
+redis = { workspace = true }
+
+# 时间处理
+chrono = { workspace = true }
+uuid = { workspace = true }
+
+# 数值计算
+rust_decimal = { version = "1.0", features = ["serde"] }
+rust_decimal_macros = "1.0"
+
+# 共享库
+shared-models = { path = "../../shared/models" }
+shared-utils = { path = "../../shared/utils" }
+shared-protocols = { path = "../../shared/protocols" }
+
+# 日志和监控
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+prometheus = "0.13"
+
+# WebSocket
+tokio-tungstenite = "0.21"
+futures-util = "0.3"
+
+# 配置
+config = "0.14"
+dotenvy = "0.15"
+
+# HTTP客户端
+reqwest = { version = "0.11", features = ["json"] }
+
+# 异步工具
+tokio-util = "0.7"
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+
+# 并发工具
+dashmap = "5.5"
+parking_lot = "0.12"
+
+# 随机数生成
+rand = "0.8"
+
+# 错误处理
+color-eyre = "0.6"
+
+[dev-dependencies]
+tokio-test = "0.4"

@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # 核心缓存服务 - 必需
+  redis:
+    image: redis:7-alpine
+    container_name: market_data_redis_minimal
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - ./data/redis:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis管理界面 - 开发便利
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: market_data_redis_commander_minimal
+    depends_on:
+      - redis
+    ports:
+      - "8082:8081"
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    restart: unless-stopped
+
+networks:
+  default:
+    name: market_data_minimal_network
+    driver: bridge
+
+volumes:
+  redis_data:
+    driver: local

@@ -1,0 +1,112 @@
+[workspace]
+members = [
+    "services/gateway",
+    "services/market-data",
+    "services/trading-engine",
+    "shared/models",
+    "shared/utils",
+    "shared/protocols",
+]
+
+resolver = "2"
+
+[workspace.dependencies]
+# 异步运行时
+tokio = { version = "1.35", features = ["full"] }
+tokio-util = "0.7"
+
+# Web框架
+axum = { version = "0.7", features = ["ws", "macros"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = [
+    "cors",
+    "trace",
+    "compression-br",
+    "compression-gzip",
+] }
+hyper = "1.0"
+
+# 序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+
+# 数据库
+sqlx = { version = "0.7", features = [
+    "postgres",
+    "runtime-tokio-rustls",
+    "chrono",
+    "uuid",
+    "bigdecimal",
+    "rust_decimal",
+    "migrate",
+] }
+redis = { version = "0.24", features = ["tokio-comp", "connection-manager"] }
+clickhouse = { version = "0.11", features = ["time", "uuid"] }
+
+# 消息队列
+rdkafka = { version = "0.36", features = ["cmake-build"] }
+
+# 时间处理
+chrono = { version = "0.4", features = ["serde"] }
+time = "0.3"
+
+# UUID
+uuid = { version = "1.6", features = ["v4", "serde"] }
+
+# 数值计算
+rust_decimal = { version = "1.33", features = ["serde-float"] }
+rust_decimal_macros = "1.33"
+
+# 错误处理
+anyhow = "1.0"
+thiserror = "1.0"
+
+# 日志
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-appender = "0.2"
+
+# 配置管理
+config = "0.14"
+dotenvy = "0.15"
+
+# 加密
+aes-gcm = "0.10"
+sha2 = "0.10"
+hmac = "0.12"
+jsonwebtoken = "9.2"
+bcrypt = "0.15"
+
+# WebSocket
+tokio-tungstenite = { version = "0.21", features = ["rustls-tls-webpki-roots"] }
+futures-util = "0.3"
+
+# HTTP客户端
+reqwest = { version = "0.11", features = ["json", "rustls-tls-webpki-roots"] }
+
+# URL编码
+urlencoding = "2.1"
+
+# 并发
+dashmap = "5.5"
+parking_lot = "0.12"
+crossbeam = "0.8"
+
+# 监控
+prometheus = "0.13"
+metrics = "0.22"
+
+# 测试
+mockall = "0.12"
+wiremock = "0.5"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[profile.dev]
+opt-level = 0
+debug = true
